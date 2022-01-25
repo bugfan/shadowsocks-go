@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"crypto/cipher"
 	"crypto/rand"
+	"fmt"
 	"io"
 	"net"
 
@@ -205,6 +206,7 @@ func (c *streamConn) initReader() error {
 	if _, err := io.ReadFull(c.Conn, salt); err != nil {
 		return err
 	}
+	fmt.Println("111:", string(salt))
 	aead, err := c.Decrypter(salt)
 	if err != nil {
 		return err
@@ -241,6 +243,7 @@ func (c *streamConn) initWriter() error {
 	if _, err := io.ReadFull(rand.Reader, salt); err != nil {
 		return err
 	}
+	fmt.Println("222:", string(salt))
 	aead, err := c.Encrypter(salt)
 	if err != nil {
 		return err

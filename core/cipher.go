@@ -3,6 +3,7 @@ package core
 import (
 	"crypto/md5"
 	"errors"
+	"fmt"
 	"net"
 	"sort"
 	"strings"
@@ -74,6 +75,7 @@ func PickCipher(name string, key []byte, password string) (Cipher, error) {
 		if len(key) != choice.KeySize {
 			return nil, shadowaead.KeySizeError(choice.KeySize)
 		}
+		fmt.Println("pwd:", password, 0, string(key))
 		aead, err := choice.New(key)
 		return &aeadCipher{aead}, err
 	}
