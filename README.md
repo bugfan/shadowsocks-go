@@ -56,3 +56,9 @@ https://github.com/shadowsocks/go-shadowsocks2
 
 ## run
  SHADOWSOCKS_SF_CAPACITY=1e6 SHADOWSOCKS_SF_FPR=1e-6 SHADOWSOCKS_SF_SLOT=10 ./shadowsocks-go -s 'ss://AEAD_CHACHA20_POLY1305:abcdef@0.0.0.0:8080'
+
+ ## todo
+ - add auth logic which could access shadowsocks-auth
+ - add auto-config module which pull config from configuration center
+ - dockerization
+ 
