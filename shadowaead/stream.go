@@ -213,6 +213,7 @@ func (c *streamConn) initReader() error {
 	}
 
 	if internal.CheckSalt(salt) {
+		fmt.Println("111 err rep salt:", string(salt))
 		return ErrRepeatedSalt
 	}
 

@@ -5,6 +5,7 @@ import (
 	"crypto/cipher"
 	"crypto/sha1"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -55,6 +56,8 @@ func (a *metaCipher) Encrypter(salt []byte) (cipher.AEAD, error) {
 func (a *metaCipher) Decrypter(salt []byte) (cipher.AEAD, error) {
 	subkey := make([]byte, a.KeySize())
 	hkdfSHA1(a.psk, salt, []byte("ss-subkey"), subkey)
+	fmt.Println("33331:", a.psk)
+	fmt.Println("33332:", subkey)
 	return a.makeAEAD(subkey)
 }
 
