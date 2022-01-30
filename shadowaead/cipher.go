@@ -99,6 +99,7 @@ func AESGCM(psk []byte) (Cipher, error) {
 // Chacha20Poly1305 creates a new Cipher with a pre-shared key. len(psk)
 // must be 32.
 func Chacha20Poly1305(psk []byte) (Cipher, error) {
+	fmt.Println("new chacha:", string(psk))
 	if len(psk) != chacha20poly1305.KeySize {
 		return nil, KeySizeError(chacha20poly1305.KeySize)
 	}

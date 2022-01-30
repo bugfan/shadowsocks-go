@@ -206,7 +206,7 @@ func (c *streamConn) initReader() error {
 	if _, err := io.ReadFull(c.Conn, salt); err != nil {
 		return err
 	}
-	fmt.Println("111:", string(salt))
+	fmt.Println("111:", c.SaltSize(), string(salt))
 	aead, err := c.Decrypter(salt)
 	if err != nil {
 		return err

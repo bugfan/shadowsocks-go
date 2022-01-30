@@ -55,6 +55,8 @@ func ListCipher() []string {
 
 // PickCipher returns a Cipher of the given name. Derive key from password if given key is empty.
 func PickCipher(name string, key []byte, password string) (Cipher, error) {
+	fmt.Println("initttttt:", name, string(key), password)
+
 	name = strings.ToUpper(name)
 
 	switch name {
