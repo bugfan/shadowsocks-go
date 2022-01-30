@@ -4,6 +4,7 @@ import (
 	"crypto/aes"
 	"crypto/cipher"
 	"crypto/sha1"
+	"encoding/base64"
 	"errors"
 	"fmt"
 	"io"
@@ -56,9 +57,24 @@ func (a *metaCipher) Encrypter(salt []byte) (cipher.AEAD, error) {
 func (a *metaCipher) Decrypter(salt []byte) (cipher.AEAD, error) {
 	subkey := make([]byte, a.KeySize())
 	hkdfSHA1(a.psk, salt, []byte("ss-subkey"), subkey)
-	fmt.Println("33331:", a.psk)
-	fmt.Println("33332:", subkey)
+	str, bs := ParseNPK(a.psk)
+	fmt.Println("33331:", string(a.psk))
+	fmt.Println("33331.0:", str, bs)
+	fmt.Println("33332:", string(subkey))
 	return a.makeAEAD(subkey)
+}
+func ParseNPK(pk []byte) (string, []byte) {
+	buf := []byte{}
+	for i := 0; i < len(pk); i++ {
+		buf = append(buf, pk[i])
+	}
+	return string(btoa(buf)), buf
+}
+func btoa(data []byte) []byte {
+	// Base64 Standard Encoding
+	sEnc := base64.StdEncoding.EncodeToString(data)
+	// fmt.Println(sEnc) // aGVsbG8gd29ybGQxMjM0NSE/JComKCknLUB+
+	return []byte(sEnc)
 }
 
 func aesGCM(key []byte) (cipher.AEAD, error) {
